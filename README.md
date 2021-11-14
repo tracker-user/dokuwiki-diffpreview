@@ -1,10 +1,10 @@
 # Diffpreview (Dokuwiki Plugin)
 
-Author: Mikhail I. Izmestev (izmmishao5@gmail.com)
+Author: Mikhail I. Izmestev (izmmishao5@gmail.com)  
 Current maintainer: Tilwa Qendov (tilwa.qendov@gmail.com)
 
-Official docs: https://www.dokuwiki.org/plugin:diffpreview
-Changelog: See [CHANGELOG.md]
+Official docs: <https://www.dokuwiki.org/plugin:diffpreview>  
+Changelog: See [CHANGELOG.md](CHANGELOG.md)
 
 ## Overview
 

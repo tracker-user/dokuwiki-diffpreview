@@ -6,7 +6,7 @@
  * @license  GPL-2.0-or-later (http://www.gnu.org/licenses/gpl.html)
  * @author   Mikhail I. Izmestev <izmmishao5@gmail.com>
  * @author   Tilwa Qendov <tilwa.qendov@gmail.com>
- * @version  1.1.2
+ * @version  1.2.0
  */
 class action_plugin_diffpreview extends DokuWiki_Action_Plugin
 {
@@ -15,7 +15,9 @@ class action_plugin_diffpreview extends DokuWiki_Action_Plugin
      */
     public function register(Doku_Event_Handler $controller)
     {
-        $controller->register_hook('HTML_EDITFORM_OUTPUT', 'BEFORE', $this, '_edit_form');
+        $controller->register_hook('HTML_EDITFORM_OUTPUT', 'BEFORE', $this, '_edit_form'); // release Hogfather and below
+        $controller->register_hook('FORM_EDIT_OUTPUT', 'BEFORE', $this, '_edit_form'); // release Igor and above
+
         $controller->register_hook('ACTION_ACT_PREPROCESS', 'BEFORE', $this, '_action_act_preprocess');
         $controller->register_hook('TPL_ACT_UNKNOWN', 'BEFORE', $this, '_tpl_act_changes');
     }
@@ -25,11 +27,29 @@ class action_plugin_diffpreview extends DokuWiki_Action_Plugin
      */
     public function _edit_form(Doku_Event $event, $param)
     {
-        $preview = $event->data->findElementById('edbtn__preview');
-        if ($preview !== false) {
-            $event->data->insertElement($preview+1,
-                form_makeButton('submit', 'changes', $this->getLang('changes'),
-                    array('id' => 'edbtn__changes', 'accesskey' => 'c', 'tabindex' => '5')));
+        $form = $event->data;
+
+        /* Check the DokuWiki release */
+        if (is_a($form, \dokuwiki\Form\Form::class)) {
+            /* release Igor and above */
+
+            $pos = $form->findPositionByAttribute('id', 'edbtn__preview');
+            if ($pos !== false) {
+                $form->addButton('do[changes]', $this->getLang('changes'), $pos+1)
+                    ->attr('type', 'submit')
+                    ->attrs(['accesskey' => 'c', 'tabindex' => '5'])
+                    ->id('edbtn__changes');
+            }
+
+        } else {
+            /* release Hogfather and below */
+
+            $preview = $form->findElementById('edbtn__preview');
+            if ($preview !== false) {
+                $form->insertElement($preview+1,
+                    form_makeButton('submit', 'changes', $this->getLang('changes'),
+                        array('id' => 'edbtn__changes', 'accesskey' => 'c', 'tabindex' => '5')));
+            }
         }
     }
 
