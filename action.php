@@ -6,7 +6,7 @@
  * @license  GPL-2.0-or-later (http://www.gnu.org/licenses/gpl.html)
  * @author   Mikhail I. Izmestev <izmmishao5@gmail.com>
  * @author   Tilwa Qendov <tilwa.qendov@gmail.com>
- * @version  1.2.0
+ * @version  1.3.0
  */
 class action_plugin_diffpreview extends DokuWiki_Action_Plugin
 {
@@ -83,7 +83,7 @@ class action_plugin_diffpreview extends DokuWiki_Action_Plugin
             $event->preventDefault();
 
         } elseif (function_exists('act_permcheck')) {
-            /* Release Frusterick Manners and below */
+            /* release Frusterick Manners and below */
 
             // Same setup as preview: permissions and environment
             if ('preview' == act_permcheck('preview')
@@ -115,9 +115,20 @@ class action_plugin_diffpreview extends DokuWiki_Action_Plugin
 
         if ('changes' != $event->data) return;
 
-        html_edit($TEXT);
-        echo '<br id="scroll__here" />';
-        html_diff(con($PRE,$TEXT,$SUF));
+        /* Check the DokuWiki release */
+        try {
+            // Try to load the Ui\Editor class ourselves to avoid a fatal error in `class_exists`
+            spl_autoload('\\dokuwiki\\Ui\\Editor');
+        } catch (Exception $e) {}
+        if (class_exists('\\dokuwiki\\Ui\\Editor', false)) {
+            /* release Igor and above */
+            (new helper_plugin_diffpreview_changes)->tplContent();
+        } else {
+            /* release Hogfather and below */
+            html_edit($TEXT);
+            echo '<br id="scroll__here" />';
+            html_diff(con($PRE,$TEXT,$SUF));
+        }
 
         $event->preventDefault();
     }
