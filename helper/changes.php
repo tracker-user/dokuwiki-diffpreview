@@ -3,8 +3,10 @@
 /**
  * How dokuwiki\Action\Changes would look like if it existed in Dokuwiki release Igor.
  * This class is mostly a wrapper around dokuwiki\Action\Preview.
+ * 
+ * NB: This class is currently unused.
  */
-class helper_plugin_diffpreview_changes {
+class helper_plugin_diffpreview_changes extends Dokuwiki_Plugin {
     protected $actionname = 'changes';
     protected $preview;
 

@@ -1,5 +1,9 @@
 # Changelog
 
+# [1.3.1] – 2023-06-18
+
+Fix GitHub issue #5 by making helper_plugin_diffpreview_changes an actual plugin.
+
 # [1.3.0] – 2022-11-24
 
 Fully support DokuWiki release Igor.

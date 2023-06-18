@@ -6,7 +6,7 @@
  * @license  GPL-2.0-or-later (http://www.gnu.org/licenses/gpl.html)
  * @author   Mikhail I. Izmestev <izmmishao5@gmail.com>
  * @author   Tilwa Qendov <tilwa.qendov@gmail.com>
- * @version  1.3.0
+ * @version  1.3.1
  */
 class action_plugin_diffpreview extends DokuWiki_Action_Plugin
 {
