@@ -7,6 +7,10 @@
  * @author   Mikhail I. Izmestev <izmmishao5@gmail.com>
  * @author   Tilwa Qendov <tilwa.qendov@gmail.com>
  * @version  1.3.1
+ *
+ * Local fork modifications vs upstream 1.3.1 (2023-06-18):
+ *   - array() -> [] short syntax; dropped an unused \$INFO from a global
+ *     declaration. The bug fix lives in helper/changes.php. See README.md.
  */
 class action_plugin_diffpreview extends DokuWiki_Action_Plugin
 {
@@ -48,7 +52,7 @@ class action_plugin_diffpreview extends DokuWiki_Action_Plugin
             if ($preview !== false) {
                 $form->insertElement($preview+1,
                     form_makeButton('submit', 'changes', $this->getLang('changes'),
-                        array('id' => 'edbtn__changes', 'accesskey' => 'c', 'tabindex' => '5')));
+                        ['id' => 'edbtn__changes', 'accesskey' => 'c', 'tabindex' => '5']));
             }
         }
     }
@@ -58,7 +62,7 @@ class action_plugin_diffpreview extends DokuWiki_Action_Plugin
      */
     public function _action_act_preprocess(Doku_Event $event, $param)
     {
-        global $ACT, $INFO;
+        global $ACT;
 
         $action =& $event->data;
 
@@ -166,14 +170,14 @@ class action_plugin_diffpreview extends DokuWiki_Action_Plugin
             assert(isset($INFO['client']), 'INFO.client should have been set');
             assert(isset($ID), 'ID should have been set');
 
-            $draft = array(
+            $draft = [
                 'id' => $ID,
                 'prefix' => substr($INPUT->post->str('prefix'), 0, -1),
                 'text' => $INPUT->post->str('wikitext'),
                 'suffix' => $INPUT->post->str('suffix'),
                 'date' => $INPUT->post->int('date'),
                 'client' => $INFO['client'],
-            );
+            ];
             $cname = getCacheName($draft['client'] . $ID, '.draft');
             if (io_saveFile($cname, serialize($draft))) {
                 $INFO['draft'] = $cname;
