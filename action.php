@@ -120,11 +120,7 @@ class action_plugin_diffpreview extends DokuWiki_Action_Plugin
         if ('changes' != $event->data) return;
 
         /* Check the DokuWiki release */
-        try {
-            // Try to load the Ui\Editor class ourselves to avoid a fatal error in `class_exists`
-            spl_autoload('\\dokuwiki\\Ui\\Editor');
-        } catch (Exception $e) {}
-        if (class_exists('\\dokuwiki\\Ui\\Editor', false)) {
+        if (class_exists('\\dokuwiki\\Ui\\Editor')) {
             /* release Igor and above */
             (new helper_plugin_diffpreview_changes)->tplContent();
         } else {
