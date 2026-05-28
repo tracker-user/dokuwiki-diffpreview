@@ -2,6 +2,6 @@ base   diffpreview
 author Mikhail I. Izmestev, Tilwa Qendov, TrackerUser
 email  tilwa.qendov@gmail.com
 date   2077-06-18
-name   diffpreview
+name   DiffPreview
 desc   Adds button for diff preview in edit mode (local fork — Update suppressed)
 url    https://github.com/tracker-user/dokuwiki-diffpreview

@@ -1,4 +1,5 @@
 <?php
+if (!defined('DOKU_INC')) die();
 
 /**
  * Helper component of the DiffPreview plugin.

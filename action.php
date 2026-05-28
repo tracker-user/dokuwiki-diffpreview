@@ -1,4 +1,5 @@
 <?php
+if (!defined('DOKU_INC')) die();
 
 /**
  * DokuWiki Action component of DiffPreview Plugin
